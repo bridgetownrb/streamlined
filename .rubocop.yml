@@ -1,0 +1,53 @@
+require:
+ - rubocop-bridgetown
+ - rubocop-minitest
+ - rubocop-rake
+
+inherit_gem:
+  rubocop-bridgetown: .rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+
+  Exclude:
+    - .gitignore
+    - .rubocop.yml
+    - "*.gemspec"
+
+    - Gemfile.lock
+    - CHANGELOG.md
+    - LICENSE.txt
+    - README.md
+    - Rakefile
+
+    - bin/**/*
+    - test/fixtures/**/*
+    - vendor/**/*
+
+# Disabled to aid in template readability
+Layout/MultilineBlockLayout:
+  Enabled: false
+
+# Disabled to aid in template readability
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+  - test/**/*.rb
+
+Metrics/ClassLength:
+  Exclude:
+  - test/**/*.rb
+
+Metrics/MethodLength:
+  Exclude:
+  - test/**/*.rb
+
+# Disabled to aid in template readability
+Style/NestedParenthesizedCalls:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
