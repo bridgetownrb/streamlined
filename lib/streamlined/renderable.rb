@@ -23,11 +23,7 @@ module Streamlined
         result = item.is_a?(Proc) ? item.to_s : yield
         return result if result.is_a?(OutputBuffer)
 
-        if result.respond_to?(:render_in)
-          result = result.render_in(self, &block)&.to_s&.html_safe
-        elsif result.is_a?(String) && !result.html_safe?
-          result = text(result)
-        end
+        result = text(result) if result.is_a?(String) && !result.html_safe?
 
         @_rbout ||= OutputBuffer.new
         @_rbout << result.to_s
@@ -49,8 +45,10 @@ module Streamlined
       @_view_context
     end
 
-    def capture(...)
-      helpers ? helpers.capture(...) : yield(*args)
+    # rubocop:disable Style/ArgumentsForwarding
+    def capture(*args, &block)
+      helpers ? helpers.capture(*args, &block) : yield(*args)
     end
+    # rubocop:enable Style/ArgumentsForwarding
   end
 end

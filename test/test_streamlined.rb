@@ -37,7 +37,11 @@ class TestComponent
       }
 
       render { markdown_content } if @number == 123
-      render { ChildComponent.new }
+      render do
+        render(ChildComponent.new) do |c|
+          c.label { "top-level" }
+        end
+      end
       render { unsafe_content }
     end
 
@@ -56,9 +60,15 @@ end
 class ChildComponent
   include Streamlined::Renderable
 
+  def label(&block)
+    @label = block ? capture(self, &block) : @label
+  end
+
   def template
+    yield(self)
+
     html -> { <<~HTML
-      <p>I'm in a child component.</p>
+      <p>I'm in a #{text -> { label }} child component.</p>
     HTML
     }
   end
@@ -88,7 +98,7 @@ class TestStreamlined < Minitest::Test
   def test_component_output
     document_root(
       render(TestComponent.new name: "Name", number: 123) do
-        render ChildComponent.new
+        render(ChildComponent.new) { _1.label { "nested" } }
       end
     )
 
@@ -112,7 +122,7 @@ class TestStreamlined < Minitest::Test
     assert_equal "Name", heading2.inner_html
 
     para = section.css("> p")[0]
-    assert_equal "I'm in a child component.", para.inner_html
+    assert_equal "I'm in a nested child component.", para.inner_html
 
     footer = section.css("footer")[0]
     assert_equal "1230", footer.inner_html
