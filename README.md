@@ -10,11 +10,11 @@ Add Streamlined to your application's Gemfile by running:
 bundle add streamlined
 ```
 
-(If you're using Bridgetown, it's bundled in for Bridgetown 1.4 or later.)
+(If you're using Bridgetown, it's bundled in for Bridgetown 1.4…coming soon)
 
 ## Usage
 
-...
+Docs forthcoming...
 
 ## Development
 
