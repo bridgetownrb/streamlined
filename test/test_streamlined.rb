@@ -96,14 +96,16 @@ class TestStreamlined < Minitest::Test
   end
 
   def test_component_output
-    document_root(
-      render(TestComponent.new name: "Name", number: 123) do
-        render(ChildComponent.new) { _1.label { "nested" } }
-      end
-    )
+    rendered_markup = render(TestComponent.new name: "Name", number: 123) do
+      render(ChildComponent.new) { _1.label { "nested" } }
+    end
+    # .tap { puts _1 }
+
+    assert_includes rendered_markup, "I should be &lt;&quot;escaped&quot;&gt;"
+
+    document_root(rendered_markup)
 
     output_html = document_root_element.to_html
-    # puts output_html
     assert_includes output_html, %(&lt;script&gt;alert("Boo!")&lt;/script&gt;)
     refute_includes output_html, "<script>"
 

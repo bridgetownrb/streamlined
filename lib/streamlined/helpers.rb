@@ -81,7 +81,7 @@ module Streamlined
     end
 
     def text(callback)
-      (callback.is_a?(Proc) ? html(callback) : callback).to_s.then do |str|
+      (callback.is_a?(Proc) ? callback.pipe : callback).to_s.then do |str|
         next str if str.html_safe?
 
         str.encode(xml: :attr).gsub(%r{\A"|"\Z}, "")
