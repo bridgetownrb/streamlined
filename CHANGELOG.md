@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.3.1] - 2023-11-10
+
+- Ensure false or nil values for attributes avoid rendering attributes at all
+
+## [0.3.0] - 2023-11-07
+
+- Fix escaping bug due to bad test
+
 ## [0.2.0] - 2023-11-07
 
 - Back out of more complicated `render_in` mechanics

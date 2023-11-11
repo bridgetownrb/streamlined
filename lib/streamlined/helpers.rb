@@ -44,10 +44,12 @@ module Streamlined
     # @param prefix_space [Boolean] add a starting space if attributes are present,
     #   useful in tag builders
     # @return [String]
-    def html_attributes(options = nil, prefix_space: false, **kwargs)
+    def html_attributes(options = nil, prefix_space: false, **kwargs) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       options ||= kwargs
       segments = []
       options.each do |attr, option|
+        next if option == false || option.nil?
+
         attr = dashed(attr)
         if option.is_a?(Hash)
           option = option.transform_keys { |key| "#{attr}-#{dashed(key)}" }

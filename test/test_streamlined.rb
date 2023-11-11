@@ -45,9 +45,13 @@ class TestComponent
       render { unsafe_content }
     end
 
+    false_value = false
+    nil_value = nil
+    other_value = 123
+
     render html -> { <<~HTML
       <section>
-        <h1>#{text -> { heading }}</h1>
+        <h1 #{html_attributes(false_value:, nil_value:, other_value:)}>#{text -> { heading }}</h1>
         <h2>#{text -> { @name }}</h2>
         #{html -> { capture(self, &block) }}
         <footer>#{text -> { @number }.pipe { multiplied_by(10) }}</footer>
@@ -101,7 +105,9 @@ class TestStreamlined < Minitest::Test
     end
     # .tap { puts _1 }
 
+    # test a couple of things on the raw HTML output
     assert_includes rendered_markup, "I should be &lt;&quot;escaped&quot;&gt;"
+    assert_includes rendered_markup, %(<h1 other-value="123">)
 
     document_root(rendered_markup)
 
