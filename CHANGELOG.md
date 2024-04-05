@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.4.0] — 2024-04-04
+
+- Provide Roda plugin to mix in Streamlined helpers.
+
 ## [0.3.1] - 2023-11-10
 
 - Ensure false or nil values for attributes avoid rendering attributes at all

@@ -1,6 +1,6 @@
 # Streamlined
 
-Component rendering for Ruby using streamlined procs & heredocs. Rails and Bridgetown both supported.
+HTML fragment and component rendering for Ruby using streamlined procs & heredocs with safety checks via RuboCop. Bridgetown, Roda, and Rails all supported.
 
 ## Installation
 
@@ -10,7 +10,7 @@ Add Streamlined to your application's Gemfile by running:
 bundle add streamlined
 ```
 
-(If you're using Bridgetown, it's bundled in for Bridgetown 1.4…coming soon)
+(If you're using Bridgetown, it's bundled in for Bridgetown 2.0…coming soon)
 
 ## Usage
 

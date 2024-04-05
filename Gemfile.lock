@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    streamlined (0.3.1)
+    streamlined (0.4.0)
       serbea (>= 2.1)
       zeitwerk (~> 2.5)
 
