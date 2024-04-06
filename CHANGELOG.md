@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.5.0 - 2024-04-06
+
+- Simplify syntax of pipe procs for text & html
+
 ## [0.4.0] — 2024-04-04
 
 - Provide Roda plugin to mix in Streamlined helpers.

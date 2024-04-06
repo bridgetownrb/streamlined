@@ -1,19 +1,15 @@
 # frozen_string_literal: true
 
+require "tilt/erubi"
+
 module Streamlined
   module Helpers
-    module PipeableProc
-      include Serbea::Pipeline::Helper
+    module TouchableProc
+      attr_accessor :touched
 
-      attr_accessor :pipe_block, :touched
-
-      def pipe(&block)
-        return super(self.(), &pipe_block) if pipe_block && !block
-
+      def touch
         self.touched = true
-        return self unless block
-
-        tap { _1.pipe_block = block }
+        self
       end
 
       def html_safe
@@ -36,7 +32,7 @@ module Streamlined
       end
     end
 
-    ::Proc.prepend(PipeableProc)
+    ::Proc.prepend(TouchableProc)
 
     # Create a set of attributes from a hash.
     #
@@ -82,16 +78,20 @@ module Streamlined
       "#{attr}=#{value.to_s.encode(xml: :attr)}"
     end
 
-    def text(callback)
-      (callback.is_a?(Proc) ? callback.pipe : callback).to_s.then do |str|
+    def text(callback, piping = nil)
+      callback = Serbea::Pipeline.new(binding, callback).tap { _1.instance_exec(&piping) } if piping
+
+      (callback.is_a?(Proc) ? callback.touch : callback).to_s.then do |str|
         next str if str.html_safe?
 
         str.encode(xml: :attr).gsub(%r{\A"|"\Z}, "")
       end
     end
 
-    def html(callback)
-      callback.html_safe.pipe
+    def html(callback, piping = nil)
+      callback = Serbea::Pipeline.new(binding, callback).tap { _1.instance_exec(&piping) } if piping
+
+      callback.html_safe.touch
     end
 
     def html_map(input, &callback)

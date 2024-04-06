@@ -45,10 +45,8 @@ module Streamlined
       @_view_context
     end
 
-    # rubocop:disable Style/ArgumentsForwarding
     def capture(*args, &block)
       helpers ? helpers.capture(*args, &block) : yield(*args)
     end
-    # rubocop:enable Style/ArgumentsForwarding
   end
 end

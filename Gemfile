@@ -13,7 +13,7 @@ gem "minitest-reporters", "~> 1.5"
 gem "rubocop", "~> 1.21"
 gem "rubocop-bridgetown", "~> 0.4"
 
-gem "solargraph", "~> 0.49.0"
+gem "solargraph", "~> 0.50"
 
 gem "rails-dom-testing", "~> 2.0"
 

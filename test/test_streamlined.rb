@@ -54,8 +54,8 @@ class TestComponent
       <section>
         <h1 #{html_attributes(false_value:, nil_value:, other_value:)}>#{text -> { heading }}</h1>
         <h2 class="#{text -> { tags_in_attribute }}">#{text -> { @name }}</h2>
-        #{html -> { capture(self, &block) }}
-        <footer>#{text -> { @number }.pipe { multiplied_by(10) }}</footer>
+        #{html self, -> { capture -> { block } }}
+        <footer>#{text @number, -> { multiplied_by(10) }}</footer>
       </section>
     HTML
     }

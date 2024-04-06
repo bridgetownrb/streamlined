@@ -48,6 +48,9 @@ Metrics/MethodLength:
 Naming/BlockForwarding:
   Enabled: false
 
+Style/ArgumentsForwarding:
+  Enabled: false
+
 # Disabled to aid in template readability
 Style/NestedParenthesizedCalls:
   Enabled: false
