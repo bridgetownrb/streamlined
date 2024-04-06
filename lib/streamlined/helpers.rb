@@ -89,7 +89,11 @@ module Streamlined
     end
 
     def html(callback, piping = nil)
-      callback = Serbea::Pipeline.new(binding, callback).tap { _1.instance_exec(&piping) } if piping
+      if piping
+        callback = Serbea::Pipeline.new(binding, callback).tap { _1.instance_exec(&piping) }.then do |pipeline|
+          -> { pipeline.value }
+        end
+      end
 
       callback.html_safe.touch
     end

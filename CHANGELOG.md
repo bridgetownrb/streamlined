@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
-## [0.5.0 - 2024-04-06
+## [0.5.1] - 2024-04-06
 
-- Simplify syntax of pipe procs for text & html
+- Fix logic bug in `html`
+
+## [0.5.0] - 2024-04-06
+
+- Simplify syntax of pipe procs for `text` & `html`
 
 ## [0.4.0] — 2024-04-04
 
