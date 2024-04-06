@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.5.2] - 2024-04-06
+
+- And we need that same fix for `text` too
+
 ## [0.5.1] - 2024-04-06
 
 - Fix logic bug in `html`

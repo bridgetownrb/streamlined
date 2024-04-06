@@ -7,6 +7,12 @@ module Streamlined
     module TouchableProc
       attr_accessor :touched
 
+      def self.run_through_pipeline(in_context_binding, input, callback)
+        Serbea::Pipeline.new(in_context_binding, input).tap { _1.instance_exec(&callback) }.then do |pipeline|
+          -> { pipeline.value }
+        end
+      end
+
       def touch
         self.touched = true
         self
@@ -79,7 +85,7 @@ module Streamlined
     end
 
     def text(callback, piping = nil)
-      callback = Serbea::Pipeline.new(binding, callback).tap { _1.instance_exec(&piping) } if piping
+      callback = TouchableProc.run_through_pipeline(binding, callback, piping) if piping
 
       (callback.is_a?(Proc) ? callback.touch : callback).to_s.then do |str|
         next str if str.html_safe?
@@ -89,11 +95,7 @@ module Streamlined
     end
 
     def html(callback, piping = nil)
-      if piping
-        callback = Serbea::Pipeline.new(binding, callback).tap { _1.instance_exec(&piping) }.then do |pipeline|
-          -> { pipeline.value }
-        end
-      end
+      callback = TouchableProc.run_through_pipeline(binding, callback, piping) if piping
 
       callback.html_safe.touch
     end
