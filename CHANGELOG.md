@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.6.0] - 2024-09-07
+
+- Use much faster `CGI.escapeHTML` for escaping text
+
 ## [0.5.2] - 2024-04-06
 
 - And we need that same fix for `text` too

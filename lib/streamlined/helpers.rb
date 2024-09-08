@@ -81,7 +81,7 @@ module Streamlined
     # @param value [String] the attribute value
     # @return [String]
     def attribute_segment(attr, value)
-      "#{attr}=#{value.to_s.encode(xml: :attr)}"
+      "#{attr}=\"#{CGI.escapeHTML(value.to_s)}\""
     end
 
     def text(callback, piping = nil)
@@ -90,7 +90,7 @@ module Streamlined
       (callback.is_a?(Proc) ? callback.touch : callback).to_s.then do |str|
         next str if str.html_safe?
 
-        str.encode(xml: :attr).gsub(%r{\A"|"\Z}, "")
+        CGI.escapeHTML(str)
       end
     end
 
